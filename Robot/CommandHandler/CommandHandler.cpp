@@ -5,8 +5,11 @@ void CommandHandler::dependencyInject(Uart * uart)
 	m_Uart = uart; 
 }
 
-void CommandHandler::handleUartCommand(unsigned char* uartCommand)
+
+
+void CommandHandler::handleUartCommand(char uartCommand[] )
 {
+	m_Uart->sendData(m_message);
 	auto commandId = static_cast<uint8_t>(uartCommand[0]); 
 	switch (commandId)
 	{
@@ -32,6 +35,17 @@ void CommandHandler::handleUartCommand(unsigned char* uartCommand)
 		break;
 	default:
 		break;
+	}
+}
+
+void CommandHandler::execute()
+{
+	if(m_Uart != nullptr)
+	{
+		if(m_Uart->getLatestMessage(m_message))
+		{
+			handleUartCommand(m_message);
+		}
 	}
 }
 

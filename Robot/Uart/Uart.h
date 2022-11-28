@@ -7,19 +7,23 @@
 class Uart
 {
 	public:
-		static unsigned char buffer[20]; 
-		static unsigned char lastReceivedMessage[20]; 
-		static unsigned char* messageToSend; 
+		static char buffer[20]; 
+		static char lastReceivedMessage[20]; 
+		static char messageToSend[20]; 
 		static uint8_t messageToSendIndex;
 		static uint8_t messageReceiveIndex; 
 		static bool busySending;
-		static bool receivedMessage;  
+		static bool receivedNewMessage;  
 
 		void setup();
-		void sendData(unsigned char data[]);
+		void sendData(char data[]);
 		void sendReceivedData();
+		bool getLatestMessage(char[]); 
+
+		void enableInterrupt(); 
+		void disableInterrupt();
 	protected:
 	private:
-		unsigned char m_latestReceived;
+		char m_latestReceived;
 };
 

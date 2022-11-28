@@ -22,9 +22,11 @@ class CommandHandler
 		CommandHandler() = default; 
 		~CommandHandler() = default;
 		void dependencyInject(Uart * uart); 
-		void handleUartCommand(unsigned char*);  
+		void handleUartCommand(char[]); 
+		void execute();
 	protected:
 	private:
-		Uart * m_Uart; //Used for the send calll
+		Uart * m_Uart = nullptr; //Used for the send calll
+		char m_message[20];
 };
 

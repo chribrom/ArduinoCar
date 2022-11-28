@@ -9,7 +9,7 @@
 #include "Pwm/MotorPWM.h"
 #include "MotorIo/MotorIo.h"
 #include "Uart/Uart.h"
-
+#include "CommandHandler/CommandHandler.h"
 
 void setup()
 {
@@ -36,14 +36,18 @@ int main(void)
 {
 	//setupPwm();
 	MotorPWM motorControll; 
-	MotorIo motorDirectionControl; 
+	MotorIo motorDirectionControl;
+	CommandHandler commandHandler; 
 	Uart uart; 
-	uart.setup(); 
-	unsigned char a[] = "Hello"; 
+	uart.setup();
+	commandHandler.dependencyInject(&uart); 
+	 
+	char a[] = "Hello"; 
 	uart.sendData(a);
 	while(true)
 	{
-		uart.sendReceivedData();
+		//uart.sendReceivedData();
+		commandHandler.execute(); 
 		//uart.sendData(103);
 		//uart.sendData(10);
 		//uart.sendData(10);
