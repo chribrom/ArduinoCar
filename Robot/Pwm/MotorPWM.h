@@ -2,10 +2,12 @@
 
 #include <avr/io.h>
 
-namespace test
-{
-	enum Motors{frontLeft, frontRight, backLeft, backRight};
-}
+#include "../Common/MotorEnum.h"
+
+//namespace test
+//{
+//	enum Motors{frontLeft, frontRight, backLeft, backRight};
+//}
 
 
 
@@ -14,7 +16,7 @@ class MotorPWM
 {
 public:
 	void setup(); 
-	void setPWM(int motor, uint16_t value); 
+	void setPWM(Motors motor, uint16_t value); 
 protected:
 private:
 };

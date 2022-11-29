@@ -62,10 +62,10 @@ int main(void)
 	
 	
 	motorControll.setup(); 
-	motorControll.setPWM(test::frontLeft,50000);
-	motorControll.setPWM(test::frontRight, 50000);
-	motorControll.setPWM(test::backLeft, 50000);
-	motorControll.setPWM(test::backRight, 50000); 
+	motorControll.setPWM(Motors::frontLeft,50000);
+	motorControll.setPWM(Motors::frontRight, 50000);
+	motorControll.setPWM(Motors::backLeft, 50000);
+	motorControll.setPWM(Motors::backRight, 50000); 
 
 	
     while (1) 

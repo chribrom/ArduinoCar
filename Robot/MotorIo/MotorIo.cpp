@@ -1,6 +1,5 @@
 #include "MotorIo.h"
 
-using namespace Motors; 
 
 void MotorIo::setupDigitalIo()
 {
@@ -8,23 +7,23 @@ void MotorIo::setupDigitalIo()
 	DDRL = (1 << DDL0) | (1 << DDL1) | (1 << DDL2) | (1 << DDL3); 
 }
 
-void MotorIo::setMotorDirecton(int motor)
+void MotorIo::setMotorDirecton(Motors motor)
 {	
 	switch (motor)
 	{
-		case frontLeft:
+		case Motors::frontLeft:
 			PORTA &= ~(1 << DDA0); 
 			PORTA |= (1 << DDA1); 
 			break;
-		case frontRight:
+		case Motors::frontRight:
 			PORTA &= ~(1 << DDA2);
 			PORTA |= (1 << DDA3);  
 			break;
-		case backLeft:
+		case Motors::backLeft:
 			PORTL &= ~(1 << DDL0);
 			PORTL |= (1 << DDL1);
 			break;
-		case backRight:
+		case Motors::backRight:
 			PORTL &= ~(1 << DDL2);
 			PORTL |= (1 << DDL3);
 			break;

@@ -3,16 +3,13 @@
 #include <avr/io.h>
 #include <string.h>
 
+#include "../Common/MotorEnum.h"
 
-namespace Motors
-{
-	enum Motors{frontLeft, frontRight, backLeft, backRight};
-}
 class MotorIo
 {
 	public:
 	void setupDigitalIo();
-	void setMotorDirecton(int motor);
+	void setMotorDirecton(Motors motor);
 	protected:
 	private:
 };

@@ -17,20 +17,20 @@ void MotorPWM::setup()
 }
 
 
-void MotorPWM::setPWM(int motor, uint16_t value)
+void MotorPWM::setPWM(Motors motor, uint16_t value)
 {
 	switch (motor)
 	{
-		case test::frontLeft:
+		case Motors::frontLeft:
 			OCR4B = value; 
 			break;
-		case test::frontRight:
+		case Motors::frontRight:
 			OCR4A = value; 
 			break;
-		case test::backLeft:
+		case Motors::backLeft:
 			OCR1A = value; 
 			break;
-		case test::backRight:
+		case Motors::backRight:
 			OCR1B = value; 
 			break;
 		default:
