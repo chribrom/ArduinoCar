@@ -29,8 +29,12 @@ class CommandHandler
 	protected:
 	private:
 		int16_t charToInt(char[]); 
+
+
 		Uart* m_Uart = nullptr; //Used for the send call
 		MotorControl* m_MotorControl = nullptr; 
 		char m_message[20];
+
+		bool forward = false; 
 };
 

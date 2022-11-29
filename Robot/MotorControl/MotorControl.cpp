@@ -1,17 +1,9 @@
 ﻿#include "MotorControl.h"
 
-void MotorControl::setSpeed(int16_t speed, Motors motor)
+void MotorControl::setSpeed(uint16_t speed, Motors motor, bool forward)
 {
-	if(speed >= 0)
-	{
-		m_MotorIo->setMotorDirecton(motor, true); 
-		m_MotorPwm->setPWM(motor, speed);
-	}
-	else
-	{
-		m_MotorIo->setMotorDirecton(motor, false);
-		m_MotorPwm->setPWM(motor, -1*speed); //Need positive numbers
-	}
+	m_MotorIo->setMotorDirecton(motor, forward);
+	m_MotorPwm->setPWM(motor, speed); 
 }
 
 void MotorControl::dependencyInject(MotorIo* motorIo, MotorPWM* motorPwm)

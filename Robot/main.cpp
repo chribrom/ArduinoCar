@@ -6,11 +6,14 @@
  */ 
 
 #include <avr/io.h>
+#include <stdio.h>
+
 #include "Pwm/MotorPWM.h"
 #include "MotorIo/MotorIo.h"
 #include "MotorControl/MotorControl.h"
 #include "Uart/Uart.h"
 #include "CommandHandler/CommandHandler.h"
+#include "Timer/Timer.h"
 
 void setup()
 {
@@ -35,7 +38,8 @@ void setupPwm()
 
 int main(void)
 {
-
+	Timer timer;
+	timer.setup();
 	MotorPWM motorPwm; 
 	MotorIo motorDirectionControl; //Consider putting these under the same class Motor
 	MotorControl motorControl; 
@@ -55,15 +59,23 @@ int main(void)
 	
 	
 	motorPwm.setup(); 
-	//motorPwm.setPWM(Motors::frontLeft,50000);
-	//motorPwm.setPWM(Motors::frontRight, 50000);
-	//motorPwm.setPWM(Motors::backLeft, 50000);
-	//motorPwm.setPWM(Motors::backRight, 50000); 
-
+	timer.dependencyInject(&uart);
+	uint16_t time = 0; 
 	while(true)
 	{
-		//uart.sendReceivedData();
 		commandHandler.execute();
+		if(timer.getTime() != time)
+		{
+			time = timer.getTime();
+			char timeAscii[10];
+			sprintf(timeAscii, "%d", time);
+			uart.sendData("One second \n");
+			uart.sendData(timeAscii);
+		}
+		
+		//uart.sendData("One second \n");
+		//uart.sendData(timeAscii);
+
 		//uart.sendData(103);
 		//uart.sendData(10);
 		//uart.sendData(10);

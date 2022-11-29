@@ -8,7 +8,7 @@
 class MotorControl
 {
 public:
-	void setSpeed(int16_t speed, Motors motor);
+	void setSpeed(uint16_t speed, Motors motor, bool forward);
 	void dependencyInject(MotorIo* motorIo, MotorPWM* motorPwm); 
 protected:
 private:

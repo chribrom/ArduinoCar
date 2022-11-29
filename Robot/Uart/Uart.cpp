@@ -14,6 +14,7 @@ char Uart::messageToSend[20];
 uint8_t Uart::messageToSendIndex = 0; 
 uint8_t Uart::messageReceiveIndex = 0; 
 bool Uart::receivedNewMessage = false; 
+bool Uart::available = true; 
 
 bool received = false; 
 void Uart::setup()
@@ -31,12 +32,13 @@ void Uart::setup()
 
 void Uart::sendData(char data[]) //Need a poll on whether its busy with an overall message or not
 {
-	while(!(UCSR0A & (1 << UDRE0)))
+	while(!(UCSR0A & (1 << UDRE0)) || !Uart::available)
 	{
 		//Block, wait until read to send
 	}
 	strncpy(Uart::messageToSend, data, 20); 
 	Uart::messageToSendIndex = 0; 
+	Uart::available = false; //Make sure full message is sent before being able to take in another
 	UDR0 = Uart::messageToSend[messageToSendIndex]; 
 }
 
@@ -96,9 +98,11 @@ ISR(USART0_TX_vect)
 	if(Uart::messageToSend[Uart::messageToSendIndex] == '\0')
 	{//Check if last char sent was nul
 		UCSR0A |= (1 << TXC0); // Stop sending
+		Uart::available = true; 
 	}
 	else
 	{
+		
 		UDR0 = Uart::messageToSend[++Uart::messageToSendIndex];
 	}
 }

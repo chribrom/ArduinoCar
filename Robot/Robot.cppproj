@@ -157,6 +157,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Common\MotorEnum.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -164,6 +167,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="CommandHandler\CommandHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MotorControl\MotorControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MotorControl\MotorControl.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MotorIo\MotorIo.cpp">
@@ -178,6 +187,12 @@
     <Compile Include="Pwm\MotorPWM.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Timer\Timer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer\Timer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Uart\Uart.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -190,6 +205,8 @@
     <Folder Include="MotorIo" />
     <Folder Include="CommandHandler" />
     <Folder Include="Lcd" />
+    <Folder Include="MotorControl" />
+    <Folder Include="Common" />
     <Folder Include="Timer" />
     <Folder Include="Uart" />
     <Folder Include="Pwm" />

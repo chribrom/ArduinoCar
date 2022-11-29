@@ -9,25 +9,52 @@ void MotorIo::setupDigitalIo()
 
 void MotorIo::setMotorDirecton(Motors motor, bool forward)
 {	
-	switch (motor)
+
+	if (forward)
 	{
-		case Motors::frontLeft:
-			PORTA &= ~(1 << DDA0); 
-			PORTA |= (1 << DDA1); 
+		switch (motor)
+		{
+			case Motors::frontLeft:
+			PORTA &= ~(1 << DDA1);
+			PORTA |= (1 << DDA0);
 			break;
-		case Motors::frontRight:
-			PORTA &= ~(1 << DDA2);
-			PORTA |= (1 << DDA3);  
+			case Motors::frontRight:
+			PORTA &= ~(1 << DDA3);
+			PORTA |= (1 << DDA2);
 			break;
-		case Motors::backLeft:
-			PORTL &= ~(1 << DDL0);
-			PORTL |= (1 << DDL1);
+			case Motors::backLeft:
+			PORTL &= ~(1 << DDL1);
+			PORTL |= (1 << DDL0);
 			break;
-		case Motors::backRight:
-			PORTL &= ~(1 << DDL2);
-			PORTL |= (1 << DDL3);
+			case Motors::backRight:
+			PORTL &= ~(1 << DDL3);
+			PORTL |= (1 << DDL2);
 			break;
-		default:
+			default:
 			break;
+		}
+	}
+	else{
+		switch (motor)
+		{
+			case Motors::frontLeft:
+				PORTA &= ~(1 << DDA0); 
+				PORTA |= (1 << DDA1); 
+				break;
+			case Motors::frontRight:
+				PORTA &= ~(1 << DDA2);
+				PORTA |= (1 << DDA3);  
+				break;
+			case Motors::backLeft:
+				PORTL &= ~(1 << DDL0);
+				PORTL |= (1 << DDL1);
+				break;
+			case Motors::backRight:
+				PORTL &= ~(1 << DDL2);
+				PORTL |= (1 << DDL3);
+				break;
+			default:
+				break;
+		}
 	}
 }

@@ -12,8 +12,9 @@ class Uart
 		static char messageToSend[20]; 
 		static uint8_t messageToSendIndex;
 		static uint8_t messageReceiveIndex; 
-		static bool busySending;
+		static bool available;
 		static bool receivedNewMessage;  
+		
 
 		void setup();
 		void sendData(char data[]);
