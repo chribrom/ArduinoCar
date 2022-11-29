@@ -7,7 +7,7 @@ void MotorIo::setupDigitalIo()
 	DDRL = (1 << DDL0) | (1 << DDL1) | (1 << DDL2) | (1 << DDL3); 
 }
 
-void MotorIo::setMotorDirecton(Motors motor)
+void MotorIo::setMotorDirecton(Motors motor, bool forward)
 {	
 	switch (motor)
 	{

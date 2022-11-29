@@ -8,6 +8,7 @@
 #include <avr/io.h>
 #include "Pwm/MotorPWM.h"
 #include "MotorIo/MotorIo.h"
+#include "MotorControl/MotorControl.h"
 #include "Uart/Uart.h"
 #include "CommandHandler/CommandHandler.h"
 
@@ -34,40 +35,41 @@ void setupPwm()
 
 int main(void)
 {
-	//setupPwm();
-	MotorPWM motorControll; 
-	MotorIo motorDirectionControl;
+
+	MotorPWM motorPwm; 
+	MotorIo motorDirectionControl; //Consider putting these under the same class Motor
+	MotorControl motorControl; 
 	CommandHandler commandHandler; 
 	Uart uart; 
 	uart.setup();
-	commandHandler.dependencyInject(&uart); 
+	commandHandler.dependencyInject(&uart, &motorControl); 
 	 
 	char a[] = "Hello"; 
 	uart.sendData(a);
+	
+	motorDirectionControl.setupDigitalIo(); 
+	motorDirectionControl.setMotorDirecton(Motors::frontRight, true); 
+	motorDirectionControl.setMotorDirecton(Motors::frontLeft, true); 
+	motorDirectionControl.setMotorDirecton(Motors::backRight, true); 
+	motorDirectionControl.setMotorDirecton(Motors::backLeft, true); 
+	
+	
+	motorPwm.setup(); 
+	//motorPwm.setPWM(Motors::frontLeft,50000);
+	//motorPwm.setPWM(Motors::frontRight, 50000);
+	//motorPwm.setPWM(Motors::backLeft, 50000);
+	//motorPwm.setPWM(Motors::backRight, 50000); 
+
 	while(true)
 	{
 		//uart.sendReceivedData();
-		commandHandler.execute(); 
+		commandHandler.execute();
 		//uart.sendData(103);
 		//uart.sendData(10);
 		//uart.sendData(10);
 
 
 	}
-	motorDirectionControl.setupDigitalIo(); 
-	motorDirectionControl.setMotorDirecton(Motors::frontRight); 
-	motorDirectionControl.setMotorDirecton(Motors::frontLeft); 
-	motorDirectionControl.setMotorDirecton(Motors::backRight); 
-	motorDirectionControl.setMotorDirecton(Motors::backLeft); 
-	
-	
-	motorControll.setup(); 
-	motorControll.setPWM(Motors::frontLeft,50000);
-	motorControll.setPWM(Motors::frontRight, 50000);
-	motorControll.setPWM(Motors::backLeft, 50000);
-	motorControll.setPWM(Motors::backRight, 50000); 
-
-	
     while (1) 
     {
  

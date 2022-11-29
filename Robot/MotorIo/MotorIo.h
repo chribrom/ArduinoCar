@@ -9,7 +9,7 @@ class MotorIo
 {
 	public:
 	void setupDigitalIo();
-	void setMotorDirecton(Motors motor);
+	void setMotorDirecton(Motors motor, bool forward);
 	protected:
 	private:
 };

@@ -29,7 +29,7 @@ void Uart::setup()
 	
 }
 
-void Uart::sendData(char data[])
+void Uart::sendData(char data[]) //Need a poll on whether its busy with an overall message or not
 {
 	while(!(UCSR0A & (1 << UDRE0)))
 	{

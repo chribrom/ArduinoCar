@@ -4,25 +4,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-void CommandHandler::dependencyInject(Uart * uart)
+void CommandHandler::dependencyInject(Uart * uart, MotorControl* motorControl)
 {
-	m_Uart = uart; 
+	m_Uart = uart;
+	m_MotorControl = motorControl; 
 }
 
 
 
 void CommandHandler::handleUartCommand(char uartCommand[] )
 {
-	m_Uart->sendData(m_message);
-	auto commandId = static_cast<uint8_t>(uartCommand[0]); 
-	uint8_t commandValue = atoi(&uartCommand[1]); 
-	if(commandValue == 1000)
-	{
-		m_Uart->sendData(m_message);
-	}
+	auto commandId = static_cast<uint8_t>(uartCommand[0]);  
+	int16_t commandValue = charToInt(uartCommand); 
+
 	switch (commandId)
 	{
 	case setSpeed:
+		m_Uart->sendData("setSpeed"); 
+
+		m_MotorControl->setSpeed(commandValue, Motors::frontLeft);
+		m_MotorControl->setSpeed(commandValue, Motors::frontRight);
+		m_MotorControl->setSpeed(commandValue, Motors::backLeft);
+		m_MotorControl->setSpeed(commandValue, Motors::backRight);
 		break;
 
 	case setLeftSideSpeed:
@@ -56,5 +59,17 @@ void CommandHandler::execute()
 			handleUartCommand(m_message);
 		}
 	}
+}
+
+int16_t CommandHandler::charToInt(char string[])
+{
+	int16_t value = 0; 
+	//Do some errot checking and check for negative numbers
+	for (int8_t i = 1; string[i] != '\0'; i++) //start at 1 cause the first bit is the header. Find a better solution for this. Dirty as fuck
+	{
+		value = value * 10 + string[i] - '0';
+	}
+	
+	return value; 
 }
 
